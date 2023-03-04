@@ -1,0 +1,25 @@
+---
+
+- name: Sending artifact to tomcat server
+  hosts: myservers
+  become: True
+  tasks:
+    - name: cloning repo
+      shell: git clone https://github.com/Harikrushn96/CICD.git
+      args:
+        chdir: /opt/
+
+    - name: install maven
+      apt:
+        name: maven
+        state: present
+
+    - name: building artifact
+      shell: mvn clean package
+      args:
+        chdir: /opt/CICD/
+
+    - name: deploying artifact
+      shell: mv *.war /opt/tomcat/webapps/ROOT.war
+      args:
+        chdir: /opt/CICD/target/
