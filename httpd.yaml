@@ -1,0 +1,20 @@
+---
+
+- name: installing httpd to rehat
+  hosts: redhat
+  become: True
+
+  tasks:
+    - name: updating cache
+      yum:
+        update_cache: true
+
+    - name: installing httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: starting the httpd process
+      service:
+        name: httpd
+        state: started

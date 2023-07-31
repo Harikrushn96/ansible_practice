@@ -1,0 +1,15 @@
+---
+
+- name: ping dynamic inventory
+  hosts: ubuntu
+  become: true
+
+  tasks:
+    - name: updateing cache
+      apt:
+        update_cache: true
+        
+    - name: installing maven
+      apt:
+        name: maven
+        state: present
